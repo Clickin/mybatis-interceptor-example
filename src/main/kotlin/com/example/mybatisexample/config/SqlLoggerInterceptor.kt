@@ -50,8 +50,8 @@ class SqlLoggerInterceptor : Interceptor {
         val boundSql = mappedStatement.getBoundSql(parameter)
         val configuration = mappedStatement.configuration
         var returnValue: Any? = null
-        logger.info("/*---------------Mapper Map ID: $sqlId[begin]---------------*/")
-        val sql = geneSql(configuration, boundSql)
+        logger.info("/*---------------Mapper Map ID: {}[begin]---------------*/", sqlId)
+        val sql = genSql(configuration, boundSql)
         logger.info("==> sql:\n {}\n/*{}*/", sql, sqlId)
         val start = System.currentTimeMillis()
         try {
@@ -96,7 +96,7 @@ class SqlLoggerInterceptor : Interceptor {
             return value
         }
 
-        fun geneSql(configuration: Configuration, boundSql: BoundSql): String {
+        fun genSql(configuration: Configuration, boundSql: BoundSql): String {
             // 쿼리실행시 맵핑되는 파라미터를 구한다
             val parameterObject = boundSql.parameterObject
             val parameterMappings = boundSql.parameterMappings
